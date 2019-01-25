@@ -13,11 +13,12 @@ public class ArrayListSerializer extends AbstractObjectSerializer {
 
     public ArrayListSerializer() {}
 
-    public JSONValue serializeToJson(Object pojo) {
+    @Override
+	public JSONValue serializeToJson(Object pojo) {
         if(!(pojo instanceof Collection)){
             throw new IllegalArgumentException();
         }
-        Collection list = (Collection)pojo;
+        Collection<?> list = (Collection<?>)pojo;
         JSONArray jsonList = new JSONArray();
         int index = 0;
         for (Object item : list) {
@@ -46,7 +47,8 @@ public class ArrayListSerializer extends AbstractObjectSerializer {
         return list;
     }
 
-    public Object deSerialize(JSONValue jsonValue) throws JSONException {
+    @Override
+	public Object deSerialize(JSONValue jsonValue) throws JSONException {
         return deSerialize(jsonValue, elementClassName);
     }
 }

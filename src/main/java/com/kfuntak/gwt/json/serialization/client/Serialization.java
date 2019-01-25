@@ -8,7 +8,8 @@ import com.google.gwt.core.client.GWT;
  */
 public class Serialization implements EntryPoint {
 
-    public void onModuleLoad() {
+    @Override
+	public void onModuleLoad() {
 		/* Lets make sure the serializers get created. */
 		GWT.create(Serializer.class);
     }

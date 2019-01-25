@@ -72,28 +72,29 @@ public class SerializationGenerator extends Generator {
         //create source writer
         String packageName = serializeClass.getPackage().getName();
         className = serializeClass.getSimpleSourceName() + "_TypeSerializer";
-        PrintWriter printWriter = ctx.tryCreate(logger, packageName, className);
-        if (printWriter == null) {
-            return packageName + "." + className;
+        try (PrintWriter printWriter = ctx.tryCreate(logger, packageName, className)) {
+	        if (printWriter == null) {
+	            return packageName + "." + className;
+	        }
+	        ClassSourceFileComposerFactory composerFactory =
+	                new ClassSourceFileComposerFactory(packageName, className);
+	        composerFactory.setSuperclass("com.kfuntak.gwt.json.serialization.client.Serializer");
+	
+	        JClassType[] subTypes = addImports(composerFactory);
+	
+	        srcWriter = composerFactory.createSourceWriter(ctx, printWriter);
+	        if (srcWriter == null) {
+	            return packageName + "." + className;
+	        }
+	
+	        //create a serializer for each interface that supports Serializable
+	        HashMap<String, JClassType> serializerMap = writeTypeSerializers(subTypes);
+	
+	        //in the class constructor, add each serializer
+	        writeTypeSerializerConstructor(serializerMap);
+	
+	        srcWriter.commit(logger);
         }
-        ClassSourceFileComposerFactory composerFactory =
-                new ClassSourceFileComposerFactory(packageName, className);
-        composerFactory.setSuperclass("com.kfuntak.gwt.json.serialization.client.Serializer");
-
-        JClassType[] subTypes = addImports(composerFactory);
-
-        srcWriter = composerFactory.createSourceWriter(ctx, printWriter);
-        if (srcWriter == null) {
-            return packageName + "." + className;
-        }
-
-        //create a serializer for each interface that supports Serializable
-        HashMap<String, JClassType> serializerMap = writeTypeSerializers(subTypes);
-
-        //in the class constructor, add each serializer
-        writeTypeSerializerConstructor(serializerMap);
-
-        srcWriter.commit(logger);
         return packageName + "." + className;
     }
 
@@ -448,7 +449,7 @@ public class SerializationGenerator extends Generator {
         return enumVar;
     }
 
-    private String deserializeSimpleType(JClassType fieldClassType, String variable) {
+    private static String deserializeSimpleType(JClassType fieldClassType, String variable) {
         if (fieldClassType.getQualifiedSourceName().equals("java.lang.Short")) {
             return "DeserializerHelper.getShort(" + variable + ")";
         } else if (fieldClassType.getQualifiedSourceName().equals("java.lang.Byte")) {
@@ -701,7 +702,7 @@ public class SerializationGenerator extends Generator {
     /**
      * Gets an annotation by searching in the inheritance tree
      */
-    private <T extends Annotation> T getAnnotation(JClassType type, Class<T> clazz) {
+    private static <T extends Annotation> T getAnnotation(JClassType type, Class<T> clazz) {
         while(type != null){
             T annot = type.getAnnotation(clazz);
             if(annot != null){

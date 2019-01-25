@@ -5,19 +5,24 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 
 public abstract class AbstractObjectSerializer implements ObjectSerializer {
-    public String serialize(Object pojo) {
+    @Override
+	public String serialize(Object pojo) {
         return serializeToJson(pojo).toString();
     }
 
-    public abstract JSONValue serializeToJson(Object pojo);
+    @Override
+	public abstract JSONValue serializeToJson(Object pojo);
 
-    public abstract Object deSerialize(JSONValue jsonValue, String className) throws JSONException;
+    @Override
+	public abstract Object deSerialize(JSONValue jsonValue, String className) throws JSONException;
 
-    public Object deSerialize(String jsonString, String className) throws JSONException {
-        return deSerialize(JSONParser.parseLenient(jsonString), className);
+    @Override
+	public Object deSerialize(String jsonString, String className) throws JSONException {
+        return deSerialize(JSONParser.parseStrict(jsonString), className);
     }
 
-    public Object deSerialize(JSONValue jsonValue) throws JSONException {
+    @Override
+	public Object deSerialize(JSONValue jsonValue) throws JSONException {
         return deSerialize(jsonValue, null);
     }
 }

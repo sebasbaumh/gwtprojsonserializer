@@ -2,10 +2,12 @@ package com.kfuntak.gwt.json.serialization.client.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import com.kfuntak.gwt.json.serialization.client.JsonSerializable;
 
+@SuppressWarnings("javadoc")
 public class School implements JsonSerializable {
 
     protected String refIdKey;
@@ -70,35 +72,41 @@ public class School implements JsonSerializable {
         super();
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((refIdKey == null) ? 0 : refIdKey.hashCode());
-        return result;
-    }
+    /* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(contactInfo, gradeLevels, refId, refIdKey, schoolName, schoolShortName, schoolUrl,
+				startDate, status);
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        School other = (School) obj;
-        if (refIdKey == null) {
-            if (other.refIdKey != null) {
-                return false;
-            }
-        } else if (!refIdKey.equals(other.refIdKey)) {
-            return false;
-        }
-        return true;
-    }
+    /* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+		if (obj == null)
+		{
+			return false;
+		}
+		if (!(obj instanceof School))
+		{
+			return false;
+		}
+		School other = (School) obj;
+		return Objects.equals(contactInfo, other.contactInfo) && Objects.equals(gradeLevels, other.gradeLevels)
+				&& Objects.equals(refId, other.refId) && Objects.equals(refIdKey, other.refIdKey)
+				&& Objects.equals(schoolName, other.schoolName)
+				&& Objects.equals(schoolShortName, other.schoolShortName) && Objects.equals(schoolUrl, other.schoolUrl)
+				&& Objects.equals(startDate, other.startDate) && this.status == other.status;
+	}
 
     public void setContactInfo(Set<Contact> contactInfo) {
         this.contactInfo = contactInfo;

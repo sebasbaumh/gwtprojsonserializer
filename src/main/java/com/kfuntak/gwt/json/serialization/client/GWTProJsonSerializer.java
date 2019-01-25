@@ -10,6 +10,7 @@ public class GWTProJsonSerializer implements EntryPoint {
     /**
      * This is the entry point method.
      */
-    public void onModuleLoad() {
+    @Override
+	public void onModuleLoad() {
     }
 }

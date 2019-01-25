@@ -15,7 +15,8 @@ public class HashMapSerializer extends AbstractObjectSerializer {
         valueClassName = className;
     }
 
-    public JSONValue serializeToJson(Object pojo) {
+    @Override
+	public JSONValue serializeToJson(Object pojo) {
         if(!(pojo instanceof Map)){
             throw new IllegalArgumentException();
         }
@@ -46,7 +47,8 @@ public class HashMapSerializer extends AbstractObjectSerializer {
         return map;
     }
 
-    public Object deSerialize(JSONValue jsonValue) throws JSONException {
+    @Override
+	public Object deSerialize(JSONValue jsonValue) throws JSONException {
         return deSerialize(jsonValue, valueClassName);
     }
 }

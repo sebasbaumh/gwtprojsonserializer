@@ -3,12 +3,16 @@ package com.kfuntak.gwt.json.serialization.client;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.kfuntak.gwt.json.serialization.client.domain.*;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.*;
 
+@SuppressWarnings({ "static-method", "javadoc" })
 public class SerializerTest extends GWTTestCase {
-    public String getModuleName() {
+    @Override
+	public String getModuleName() {
         return "com.kfuntak.gwt.json.serialization.GWTProJsonSerializer";
     }
 
@@ -26,8 +30,10 @@ public class SerializerTest extends GWTTestCase {
         return json;
     }
 
-    @Test
-    public void testTypeSerialization() {
+    @Ignore("JSON string comparision is not defined to be stable regarding order of properties")
+    //FIX: Junit @Ignore annotation does not work in GWTTestCase classes, so disable whole annotation
+    //@Test
+    public void xxxtestTypeSerialization() {
         Student s = new Student();
         s.school = new University();
         s.contact = new Contact();
@@ -50,8 +56,10 @@ public class SerializerTest extends GWTTestCase {
         assertEquals("[\"Heath\",\"Pax\",\"Soren\",\"Gage\"]",names);
     }
 
-    @Test
-    public void testSerializeArbitraryHashMap() {
+    @Ignore("JSON string comparision is not defined to be stable regarding order of properties")
+    //FIX: Junit @Ignore annotation does not work in GWTTestCase classes, so disable whole annotation
+    //@Test
+    public void xxxtestSerializeArbitraryHashMap() {
         Serializer serializer = (Serializer) GWT.create(Serializer.class);
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("name", "Heath");
@@ -61,8 +69,10 @@ public class SerializerTest extends GWTTestCase {
         assertEquals("{\"age\":\"36\", \"name\":\"Heath\", \"city\":\"Temple\"}",info);
     }
 
-    @Test
-    public void testMarshallHelperSerialize()
+    @Ignore("JSON string comparision is not defined to be stable regarding order of properties")
+    //FIX: Junit @Ignore annotation does not work in GWTTestCase classes, so disable whole annotation
+    //@Test
+    public void xxxtestMarshallHelperSerialize()
     {
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("name", "Heath");
@@ -87,7 +97,8 @@ public class SerializerTest extends GWTTestCase {
     public void testDeserializeArbitraryArrayList() {
         Serializer serializer = (Serializer) GWT.create(Serializer.class);
         String listJson = "[\"Heath\",\"Pax\",\"Soren\",\"Gage\"]";
-        ArrayList list = (ArrayList) serializer.deSerialize(listJson, "java.util.ArrayList");
+        @SuppressWarnings("unchecked")
+		ArrayList<String> list = (ArrayList<String>) serializer.deSerialize(listJson, "java.util.ArrayList");
         ArrayList<String> elist = new ArrayList<String>();
         elist.add("Heath");
         elist.add("Pax");
@@ -100,7 +111,8 @@ public class SerializerTest extends GWTTestCase {
     public void testDeserializeArbitraryHashMap() {
         Serializer serializer = (Serializer) GWT.create(Serializer.class);
         String mapJson = "{\"age\":\"36\", \"name\":\"Heath\", \"city\":\"Temple\"}";
-        HashMap map = (HashMap) serializer.deSerialize(mapJson, "java.util.HashMap");
+        @SuppressWarnings("unchecked")
+		HashMap<String, String> map = (HashMap<String, String>) serializer.deSerialize(mapJson, "java.util.HashMap");
         HashMap<String, String> emap = new HashMap<String, String>();
         emap.put("name", "Heath");
         emap.put("age", "36");
@@ -191,11 +203,13 @@ public class SerializerTest extends GWTTestCase {
         familyMap.put("paternal", familyBranchMap);
         String json = "{\"refId\":null, \"family\":{\"paternal\":{\"aunt\":{\"refId\":null, \"family\":{}, \"name\":\"Ruth\", \"class\":\"com.kfuntak.gwt.json.serialization.client.domain.Contact\"}, \"uncle\":{\"refId\":null, \"family\":{}, \"name\":\"John\", \"class\":\"com.kfuntak.gwt.json.serialization.client.domain.Contact\"}}, \"maternal\":{\"aunt\":{\"refId\":null, \"family\":{}, \"name\":\"Jenny\", \"class\":\"com.kfuntak.gwt.json.serialization.client.domain.Contact\"}, \"uncle\":{\"refId\":null, \"family\":{}, \"name\":\"Bill\", \"class\":\"com.kfuntak.gwt.json.serialization.client.domain.Contact\"}}}, \"name\":\"Mark\", \"class\":\"com.kfuntak.gwt.json.serialization.client.domain.Contact\"}";
         Contact contact = (Contact)serializer.deSerialize(json, "com.kfuntak.gwt.json.serialization.client.domain.Contact");
-        assertEquals(familyMap.toString(),contact.getFamily().toString());
+        assertEquals(familyMap,contact.getFamily());
     }
 
-    @Test
-    public void testNestedHashMapSerialization() {
+    @Ignore("JSON string comparision is not defined to be stable regarding order of properties")
+    //FIX: Junit @Ignore annotation does not work in GWTTestCase classes, so disable whole annotation
+    //@Test
+    public void xxxtestNestedHashMapSerialization() {
         Serializer serializer = (Serializer) GWT.create(Serializer.class);
         HashMap<String, HashMap<String, Contact>> familyMap = new HashMap<String, HashMap<String, Contact>>();
         HashMap<String, Contact> familyBranchMap = new HashMap<String, Contact>();
@@ -214,8 +228,10 @@ public class SerializerTest extends GWTTestCase {
     }
 
 
-    @Test
-    public void testSerialization() {
+    @Ignore("JSON string comparision is not defined to be stable regarding order of properties")
+    //FIX: Junit @Ignore annotation does not work in GWTTestCase classes, so disable whole annotation
+    //@Test
+    public void xxxtestSerialization() {
         Serializer serializer = (Serializer) GWT.create(Serializer.class);
 
         String jsonText = "{"
@@ -248,7 +264,7 @@ public class SerializerTest extends GWTTestCase {
                 + "\"status\":11}";
         University university = (University) serializer.deSerialize(jsonText, "com.kfuntak.gwt.json.serialization.client.domain.University");
         University refUniversity = createRefUniversity();
-        assertEquals(refUniversity.toString(),university.toString());
+        assertEquals(refUniversity,university);
     }
 
     private University createRefUniversity() {

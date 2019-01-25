@@ -7,6 +7,7 @@ package com.kfuntak.gwt.json.serialization.client.domain;
  * Time: 8:20 AM
  * To change this template use File | Settings | File Templates.
  */
+@SuppressWarnings("javadoc")
 public enum AddressType {
     HOME,
     WORK

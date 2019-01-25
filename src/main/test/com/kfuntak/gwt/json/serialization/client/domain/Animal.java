@@ -2,7 +2,9 @@ package com.kfuntak.gwt.json.serialization.client.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
+@SuppressWarnings("javadoc")
 public class Animal extends JsonableWithoutCruft {
     public Long refId = -1L;
     public String name;
@@ -11,33 +13,38 @@ public class Animal extends JsonableWithoutCruft {
     public HashMap<String, String> tricks = new HashMap<String, String>();
     public ArrayList<String> toys = new ArrayList<String>();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    /* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+		if (obj == null)
+		{
+			return false;
+		}
+		if (!(obj instanceof Animal))
+		{
+			return false;
+		}
+		Animal other = (Animal) obj;
+		return Objects.equals(age, other.age) && Objects.equals(name, other.name) && Objects.equals(refId, other.refId)
+				&& Objects.equals(species, other.species) && Objects.equals(toys, other.toys)
+				&& Objects.equals(tricks, other.tricks);
+	}
 
-        Animal animal = (Animal) o;
-
-        if (age != null ? !age.equals(animal.age) : animal.age != null) return false;
-        if (name != null ? !name.equals(animal.name) : animal.name != null) return false;
-        if (refId != null ? !refId.equals(animal.refId) : animal.refId != null) return false;
-        if (species != null ? !species.equals(animal.species) : animal.species != null) return false;
-        if (toys != null ? !toys.equals(animal.toys) : animal.toys != null) return false;
-        if (tricks != null ? !tricks.equals(animal.tricks) : animal.tricks != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = refId != null ? refId.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (species != null ? species.hashCode() : 0);
-        result = 31 * result + (age != null ? age.hashCode() : 0);
-        result = 31 * result + (tricks != null ? tricks.hashCode() : 0);
-        result = 31 * result + (toys != null ? toys.hashCode() : 0);
-        return result;
-    }
+    /* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(age, name, refId, species, toys, tricks);
+	}
 
 
     @Override

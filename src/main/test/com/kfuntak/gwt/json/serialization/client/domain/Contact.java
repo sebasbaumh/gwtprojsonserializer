@@ -3,7 +3,9 @@ package com.kfuntak.gwt.json.serialization.client.domain;
 import com.kfuntak.gwt.json.serialization.client.JsonSerializable;
 
 import java.util.HashMap;
+import java.util.Objects;
 
+@SuppressWarnings("javadoc")
 public class Contact implements JsonSerializable {
 
     private Long refId;
@@ -50,7 +52,40 @@ public class Contact implements JsonSerializable {
         this.phoneNumber = phoneNumber;
     }
 
-    @Override
+    /* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(address, family, name, phoneNumber, refId);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+		if (obj == null)
+		{
+			return false;
+		}
+		if (!(obj instanceof Contact))
+		{
+			return false;
+		}
+		Contact other = (Contact) obj;
+		return Objects.equals(address, other.address) && Objects.equals(family, other.family)
+				&& Objects.equals(name, other.name) && Objects.equals(phoneNumber, other.phoneNumber)
+				&& Objects.equals(refId, other.refId);
+	}
+
+	@Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("{");

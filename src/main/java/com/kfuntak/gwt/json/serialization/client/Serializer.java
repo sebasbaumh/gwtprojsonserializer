@@ -9,13 +9,15 @@ import com.google.gwt.json.client.JSONParser;
 import com.google.gwt.json.client.JSONValue;
 import com.google.gwt.json.client.JSONObject;
 
+// NOTE: methods are needed for generation of serialization code
+@SuppressWarnings("static-method")
 public class Serializer {
 
-    private static Map SERIALIZABLE_TYPES;
+    private static Map<String, ObjectSerializer> SERIALIZABLE_TYPES;
 
-    private static Map serializableTypes() {
+    private static Map<String, ObjectSerializer> serializableTypes() {
         if (SERIALIZABLE_TYPES == null) {
-            SERIALIZABLE_TYPES = new HashMap();
+            SERIALIZABLE_TYPES = new HashMap<String, ObjectSerializer>();
         }
         return SERIALIZABLE_TYPES;
     }
@@ -32,7 +34,7 @@ public class Serializer {
         }
 
         if(serializableTypes().containsKey(name)){
-            return (ObjectSerializer) serializableTypes().get(name);
+            return serializableTypes().get(name);
         } else {
             throw new SerializationException("Can't find object serializer for " + name);
         }
@@ -78,12 +80,12 @@ public class Serializer {
     }
 
     public Object deSerialize(String jsonString, String className) throws JSONException {
-        JSONValue jsonValue = JSONParser.parseLenient(jsonString);
+        JSONValue jsonValue = JSONParser.parseStrict(jsonString);
         return deSerialize(jsonValue, className);
     }
 
     public Object deSerializeArray(String jsonString, String className) throws JSONException {
-        JSONValue jsonValue = JSONParser.parseLenient(jsonString);
+        JSONValue jsonValue = JSONParser.parseStrict(jsonString);
         return new ArrayListSerializer(className).deSerialize(jsonValue);
     }
 
@@ -92,7 +94,7 @@ public class Serializer {
     }
 
     public Object deSerializeMap(String jsonString, String className) throws JSONException {
-        JSONValue jsonValue = JSONParser.parseLenient(jsonString);
+        JSONValue jsonValue = JSONParser.parseStrict(jsonString);
         return new HashMapSerializer(className).deSerialize(jsonValue);
     }
 
@@ -120,7 +122,8 @@ public class Serializer {
     public static <T> T marshall(String data, String typeString, T defaultValue) {
         if(GWT.isClient() && data != null && !data.isEmpty()){
             Serializer serializer = new Serializer();
-            T object = (T)serializer.deSerialize(data, typeString);
+            @SuppressWarnings("unchecked")
+			T object = (T)serializer.deSerialize(data, typeString);
             if (object == null) {
                 return defaultValue;
             } else {

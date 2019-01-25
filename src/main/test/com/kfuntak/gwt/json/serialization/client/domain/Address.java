@@ -4,7 +4,9 @@ import com.kfuntak.gwt.json.serialization.client.JsonSerializable;
 
 import java.lang.String;
 import java.util.HashMap;
+import java.util.Objects;
 
+@SuppressWarnings("javadoc")
 public class Address implements JsonSerializable {
     private String line1;
     private String line2;
@@ -79,7 +81,41 @@ public class Address implements JsonSerializable {
         this.zipCode = zipCode;
     }
 
-    @Override
+    /* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(city, country, line1, line2, phoneNumbers, state, type, zipCode);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+		if (obj == null)
+		{
+			return false;
+		}
+		if (!(obj instanceof Address))
+		{
+			return false;
+		}
+		Address other = (Address) obj;
+		return Objects.equals(city, other.city) && Objects.equals(country, other.country)
+				&& Objects.equals(line1, other.line1) && Objects.equals(line2, other.line2)
+				&& Objects.equals(phoneNumbers, other.phoneNumbers) && Objects.equals(state, other.state)
+				&& this.type == other.type && Objects.equals(zipCode, other.zipCode);
+	}
+
+	@Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("{");

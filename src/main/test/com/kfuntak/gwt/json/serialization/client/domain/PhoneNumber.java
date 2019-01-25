@@ -1,7 +1,10 @@
 package com.kfuntak.gwt.json.serialization.client.domain;
 
+import java.util.Objects;
+
 import com.kfuntak.gwt.json.serialization.client.JsonSerializable;
 
+@SuppressWarnings("javadoc")
 public class PhoneNumber implements JsonSerializable {
 
     private String number;
@@ -41,7 +44,39 @@ public class PhoneNumber implements JsonSerializable {
         this.listedStatus = listedStatus;
     }
 
-    @Override
+    /* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode()
+	{
+		return Objects.hash(ext, listedStatus, number, type);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+		{
+			return true;
+		}
+		if (obj == null)
+		{
+			return false;
+		}
+		if (!(obj instanceof PhoneNumber))
+		{
+			return false;
+		}
+		PhoneNumber other = (PhoneNumber) obj;
+		return Objects.equals(ext, other.ext) && Objects.equals(listedStatus, other.listedStatus)
+				&& Objects.equals(number, other.number) && Objects.equals(type, other.type);
+	}
+
+	@Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("{");

@@ -3,9 +3,7 @@ package com.kfuntak.gwt.json.serialization.client;
 import java.util.*;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dev.json.JsonValue;
 import com.google.gwt.json.client.*;
-import org.mortbay.util.ajax.JSON;
 
 public class DeserializerHelper {
     public static <T> void fillMap(Map<String, T> map, JSONValue jsonValue, DeserializationCallback<T> cb) {

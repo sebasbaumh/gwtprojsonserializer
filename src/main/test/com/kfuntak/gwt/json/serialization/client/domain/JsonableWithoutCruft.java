@@ -8,5 +8,6 @@ import com.kfuntak.gwt.json.serialization.client.SkipNullSerialization;
 @SerializeClassField(false)
 @SkipNullSerialization(true)
 @SkipMissingDeserializationFields(true)
+@SuppressWarnings("javadoc")
 public class JsonableWithoutCruft implements JsonSerializable {
 }
