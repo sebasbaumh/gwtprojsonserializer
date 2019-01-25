@@ -1,72 +1,74 @@
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.kfuntak.gwt.json</groupId>
-    <artifactId>gwtprojsonserializer</artifactId>
-    <name>GWTProJSONSerializer</name>
-    <description>GWT Professional JSON Serializer allows you to serialize any JSON text into a java object (and reverse).
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.kfuntak.gwt.json</groupId>
+	<artifactId>gwtprojsonserializer</artifactId>
+	<name>GWTProJSONSerializer</name>
+	<description>GWT Professional JSON Serializer allows you to serialize any JSON text into a java object (and reverse).
 It is crucial functionality when there is no GWT-RPC on server side.
 This JSON serializer allows easy connecting GWT client side to any standard server side technology.
     </description>
-    <version>1.1.0-SNAPSHOT</version>
-    <url>https://github.com/sebasbaumh/gwtprojsonserializer/</url>
+	<version>1.1.0</version>
+	<url>https://github.com/sebasbaumh/gwtprojsonserializer/</url>
 
-    <properties>
-        <gwt.version>2.8.2</gwt.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+	<properties>
+		<gwt.version>2.8.2</gwt.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-        </profile>
-    </profiles>
+	<profiles>
+		<profile>
+			<id>release</id>
+		</profile>
+	</profiles>
 
-    <dependencies>
+	<dependencies>
 		<!-- GWT dependencies (from maven "central" repo) -->
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-servlet</artifactId>
-            <version>${gwt.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <version>${gwt.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
-            <version>${gwt.version}</version>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- TEST -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
-    <build>
+	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/main/test</testSourceDirectory>
-        <plugins>
-            <plugin>
+		<plugins>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
@@ -78,52 +80,52 @@ This JSON serializer allows easy connecting GWT client side to any standard serv
 
 			<!-- GWT Maven plugin -->
 			<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>gwt-maven-plugin</artifactId>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
 				<version>${gwt.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- create source jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
 				<version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-surefire-plugin</artifactId>
-              <version>3.0.0-M3</version>
-              <configuration>
-                 <useSystemClassLoader>false</useSystemClassLoader>
-                 <additionalClasspathElements>
-                   <additionalClasspathElement>${basedir}/src/main/java</additionalClasspathElement>
-                   <additionalClasspathElement>${basedir}/src/main/test</additionalClasspathElement>
-                 </additionalClasspathElements>
-              </configuration>
-              <executions>
-                <execution>
-                  <phase>integration-test</phase>
-                  <goals>
-                    <goal>test</goal>
-                  </goals>
-                </execution>
-               </executions>
-            </plugin>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.0.0-M3</version>
+				<configuration>
+					<useSystemClassLoader>false</useSystemClassLoader>
+					<additionalClasspathElements>
+						<additionalClasspathElement>${basedir}/src/main/java</additionalClasspathElement>
+						<additionalClasspathElement>${basedir}/src/main/test</additionalClasspathElement>
+					</additionalClasspathElements>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<!-- copy javadoc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -170,11 +172,11 @@ This JSON serializer allows easy connecting GWT client side to any standard serv
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>3.1.1</version>
 			</plugin>
-		    <plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
 				<version>2.7</version>
 			</plugin>
-        </plugins>
-    </build>
+		</plugins>
+	</build>
 </project>
